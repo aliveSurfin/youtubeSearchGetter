@@ -5,10 +5,12 @@ import (
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
+	"github.com/robertkrimen/otto"
 )
 
 func main() {
-	fmt.Println(searchYoutube("testing"))
+	var test = searchYoutube("testing")
+	fmt.Println(test)
 }
 func extractAHrefFromURL(url string) string {
 	doc, err := goquery.NewDocument(url)
@@ -17,16 +19,29 @@ func extractAHrefFromURL(url string) string {
 	}
 	items := doc.Find(".item-section")
 	a := items.Find("a")
-	// output, err := goquery.OuterHtml(a)
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// println(output)
 	band, ok := a.Attr("href")
 	if ok {
 		return band
 	}
 	return ("ErrorGettingHref")
+}
+func getVideoData(url string) {
+	doc, err := goquery.NewDocument(url)
+	if err != nil {
+		panic(err)
+	}
+	vm := otto.New()
+	_, err = vm.Run("var window = {};")
+	_, err = vm.Run(doc.Text())
+	// println(doc.Text())
+	// _, err = vm.Run(`var test = document.getElementsByTagName("video")[0]`)
+	// _, err = vm.Run(`var test = "not a test"`)
+	// window, err := vm.Get("window")
+	_, err = vm.Run(`var test = document.getElementsByTagName("video")[0]`)
+	value, err := vm.Get("test")
+	output, err := value.ToString()
+	println(output)
+
 }
 func searchYoutube(query string) string {
 	// fmt.Println(query)
