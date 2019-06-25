@@ -8,7 +8,25 @@ import (
 )
 
 func main() {
-	fmt.Printf(searchYoutube("  S  "))
+	fmt.Println(searchYoutube("testing"))
+}
+func extractAHrefFromURL(url string) string {
+	doc, err := goquery.NewDocument(url)
+	if err != nil {
+		panic(err)
+	}
+	items := doc.Find(".item-section")
+	a := items.Find("a")
+	// output, err := goquery.OuterHtml(a)
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// println(output)
+	band, ok := a.Attr("href")
+	if ok {
+		return band
+	}
+	return ("ErrorGettingHref")
 }
 func searchYoutube(query string) string {
 	// fmt.Println(query)
@@ -20,19 +38,13 @@ func searchYoutube(query string) string {
 	}
 	// fmt.Println(query)
 	var urlStart = "https://www.youtube.com/results?search_query="
-	var finalURL = urlStart + query
-
-	doc, err := goquery.NewDocument(finalURL)
-	if err != nil {
-		panic(err)
+	var queryURL = urlStart + query
+	var videoURL = extractAHrefFromURL(queryURL)
+	for strings.Contains(videoURL, "googleadservices") ||
+		!strings.Contains(videoURL, "/watch?v=") {
+		println(videoURL)
+		videoURL = extractAHrefFromURL(queryURL)
 	}
-
-	first := doc.Find(".item-section")
-	a := first.Find("a")
-	band, ok := a.Attr("href")
-	if ok {
-		return "https://www.youtube.com" + band
-	}
-	return "NOTFOUNDSTRING"
+	return "https://www.youtube.com" + videoURL
 
 }
