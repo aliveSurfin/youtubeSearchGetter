@@ -4,17 +4,12 @@ Package search implements searching functions for video/music resources
 package search
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/robertkrimen/otto"
 )
 
-func main() {
-	var test = YoutubeFirstResult("   ")
-	fmt.Println(test)
-}
 func extractAHrefFromURL(url string) string {
 	doc, err := goquery.NewDocument(url)
 	if err != nil {
