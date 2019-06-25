@@ -1,4 +1,7 @@
-package main
+/*
+Package search implements searching functions for video/music resources
+*/
+package search
 
 import (
 	"fmt"
@@ -9,7 +12,7 @@ import (
 )
 
 func main() {
-	var test = SearchYoutubeFirstResult("   ")
+	var test = YoutubeFirstResult("   ")
 	fmt.Println(test)
 }
 func extractAHrefFromURL(url string) string {
@@ -43,7 +46,11 @@ func getVideoData(url string) {
 	println(output)
 
 }
-func SearchYoutubeFirstResult(query string) string {
+
+//YoutubeFirstResult ... function to return first youtube result for given query string
+//query: the search string
+//string: the returned youtube URL
+func YoutubeFirstResult(query string) string {
 	// fmt.Println(query)
 	query = strings.TrimSpace(query)
 
