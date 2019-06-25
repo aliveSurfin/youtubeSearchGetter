@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	var test = searchYoutube("testing")
+	var test = SearchYoutubeFirstResult("   ")
 	fmt.Println(test)
 }
 func extractAHrefFromURL(url string) string {
@@ -43,7 +43,7 @@ func getVideoData(url string) {
 	println(output)
 
 }
-func searchYoutube(query string) string {
+func SearchYoutubeFirstResult(query string) string {
 	// fmt.Println(query)
 	query = strings.TrimSpace(query)
 
