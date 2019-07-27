@@ -1,9 +1,9 @@
 ```
 package main
 
-import search "github.com/alivesurfin/youtubeSearchGetter"
+import search "github.com/alivesurfin/ytnoapi"
 
 func main() {
-	println(search.YoutubeFirstResult("test"))
+	println(ytnoapi.YoutubeFirstResult("test"))
 }
 ```

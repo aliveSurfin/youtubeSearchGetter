@@ -1,7 +1,7 @@
 /*
-Package youtubeapiless implements searching functions for video/music resources
+Package ytnoapi implements searching functions for video/music resources
 */
-package youtubeapiless
+package ytnoapi
 
 import (
 	"encoding/json"
